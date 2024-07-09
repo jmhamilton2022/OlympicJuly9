@@ -1,8 +1,31 @@
-﻿@model IEnumerable<OlympicGames.Models.Country>
+﻿@model OlympicGames.ViewModels.CountryViewModel
 
 <h2>Countries</h2>
+
+<form method="get" asp-action="Index">
+    <div>
+        <label for="selectedGame">Select Game:</label>
+        <select id="selectedGame" name="selectedGame" asp-for="SelectedGame">
+            <option value="All">All</option>
+            <option value="Winter Olympics">Winter Olympics</option>
+            <option value="Summer Olympics">Summer Olympics</option>
+            <option value="Paralympics">Paralympics</option>
+            <option value="Youth Olympic Games">Youth Olympic Games</option>
+        </select>
+    </div>
+    <div>
+        <label for="selectedType">Select Type:</label>
+        <select id="selectedType" name="selectedType" asp-for="SelectedType">
+            <option value="All">All</option>
+            <option value="Indoor">Indoor</option>
+            <option value="Outdoor">Outdoor</option>
+        </select>
+    </div>
+    <button type="submit">Filter</button>
+</form>
+
 <ul>
-    @foreach (var country in Model)
+    @foreach (var country in Model.Countries)
     {
         <li>
             <a asp-action="Details" asp-controller="Country" asp-route-id="@country.Id">
@@ -11,4 +34,3 @@
         </li>
     }
 </ul>
-<a asp-action="Index" asp-controller="Country" class="btn btn-primary">View All Countries</a>

@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using OlympicGames.Models;
+using OlympicGames.ViewModels;
 using System.Diagnostics;
+using System.Linq;
 
 namespace OlympicGames.Controllers
 {
@@ -13,10 +16,28 @@ namespace OlympicGames.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string selectedGame = "All", string selectedType = "All")
         {
-            var countries = CountryData.Countries;
-            return View(countries);
+            var countries = CountryData.Countries.AsQueryable();
+
+            if (!string.IsNullOrEmpty(selectedGame) && selectedGame != "All")
+            {
+                countries = countries.Where(c => c.Game == selectedGame);
+            }
+
+            if (!string.IsNullOrEmpty(selectedType) && selectedType != "All")
+            {
+                countries = countries.Where(c => c.Type == selectedType);
+            }
+
+            var viewModel = new CountryViewModel
+            {
+                Countries = countries.ToList(),
+                SelectedGame = selectedGame,
+                SelectedType = selectedType
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
