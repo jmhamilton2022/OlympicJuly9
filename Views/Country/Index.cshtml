@@ -1,0 +1,32 @@
+﻿@model IEnumerable<OlympicGames.Models.Country>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <h2>Filters</h2>
+            <ul>
+                <li><a href="@Url.Action("FilterByGame", new { game = "ALL" })">All Games</a></li>
+                <li><a href="@Url.Action("FilterByGame", new { game = "Summer Olympics" })">Summer Olympics</a></li>
+                <li><a href="@Url.Action("FilterByGame", new { game = "Winter Olympics" })">Winter Olympics</a></li>
+                <li><a href="@Url.Action("FilterByGame", new { game = "Paralympics" })">Paralympics</a></li>
+                <li><a href="@Url.Action("FilterByGame", new { game = "Youth Olympic Games" })">Youth Olympic Games</a></li>
+            </ul>
+            <ul>
+                <li><a href="@Url.Action("FilterByType", new { type = "ALL" })">All Types</a></li>
+                <li><a href="@Url.Action("FilterByType", new { type = "Indoor" })">Indoor</a></li>
+                <li><a href="@Url.Action("FilterByType", new { type = "Outdoor" })">Outdoor</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <h2>Countries</h2>
+            <div class="row">
+                @foreach (var country in Model)
+                {
+                    <div class="col-md-2">
+                        <img src="@country.FlagUrl" class="img-fluid" alt="@country.Name" title="@country.Name - @country.Game - @country.Type" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

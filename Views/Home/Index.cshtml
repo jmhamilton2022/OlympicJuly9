@@ -1,0 +1,14 @@
+﻿@model IEnumerable<OlympicGames.Models.Country>
+
+<h2>Countries</h2>
+<ul>
+    @foreach (var country in Model)
+    {
+        <li>
+            <a asp-action="Details" asp-controller="Country" asp-route-id="@country.Id">
+                <img src="@country.FlagUrl" alt="@country.Name" width="30" /> @country.Name
+            </a>
+        </li>
+    }
+</ul>
+<a asp-action="Index" asp-controller="Country" class="btn btn-primary">View All Countries</a>
